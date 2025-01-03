@@ -19,7 +19,7 @@ It's also written and configured in **Lua**.
 To grant **Neovim** all the bells and whistles of a VSCode Flutter experience, we'll take advantage of two key plugins: 
 [dart-vim-plugin](https://github.com/dart-lang/dart-vim-plugin) and [flutter-tools.nvim](https://github.com/nvim-flutter/flutter-tools.nvim).
 
-> Note: This tutorial assumes you have a basic **Neovim** configuration in place. For help setting **Neovim** up to this point, consider using [*kickstart.nvim*](https://github.com/nvim-lua/kickstart.nvim) to get a basic IDE experience set up.  
+> **Note**: This tutorial assumes you have a basic **Neovim** configuration in place. For help setting **Neovim** up to this point, consider using [*kickstart.nvim*](https://github.com/nvim-lua/kickstart.nvim) to get a basic IDE experience set up.  
 
 ### dart-vim-plugin
 `dart-vim-plugin` adds important Dart language support to Vim. It offers features such as syntax highlighting, code indentation, and basic code completion.

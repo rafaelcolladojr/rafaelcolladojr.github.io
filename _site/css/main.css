@@ -26,6 +26,7 @@ h6 {
 
 p {
   margin: 30px auto;
+  line-height: 1.7em;
 }
 
 p:nth-child(1) {
@@ -36,6 +37,16 @@ a,
 a:visited {
   color: #c84d00;
   text-decoration: none;
+}
+
+blockquote {
+  border-left: #494d64 solid 6px;
+  margin: 0 0 30px auto;
+  padding-left: 30px;
+}
+
+blockquote strong:nth-child(1) {
+  color: #494d64;
 }
 
 #title>a {
