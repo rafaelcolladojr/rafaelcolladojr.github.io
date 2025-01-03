@@ -11,7 +11,8 @@ title: "Articles"
       <div class="post-data">
         <span class="post-date">{{ post.date | date: "%b %d, %Y" }}</span>
         {% assign cat = post.categories[0] %}
-        <span class="post-category"><a href="/category-{{ cat }}">/{{ cat }}</a></span>
+        <!-- <span class="post-category"><a href="/category-{{ cat }}">/{{ cat }}</a></span> -->
+        <span class="post-category"><a href="">/{{ cat }}</a></span>
       </div>
       <div>
         <span class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></span>
