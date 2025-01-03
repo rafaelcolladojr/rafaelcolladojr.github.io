@@ -1,0 +1,21 @@
+title: Rafael Collado
+author: rafaelcolladojr
+subtitle: The life of a  engineer
+
+url: "https://rafaelcollado.com"
+baseurl: ""
+
+# profile-picture: assets/profile.png
+# favicon_location: assets/favicon.ico
+
+permalink: /:year-:month-:day-:title/
+
+highlighter: rouge
+
+navbar:
+ - name: "Home"
+   link: "/"
+ - name: "Articles"
+   link: "/articles/"
+ # - name: "Articles"
+ #   absolute-link: "articles"

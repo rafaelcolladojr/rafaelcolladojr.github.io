@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include head.html %}
+
+<body>
+  <div class="container">
+    {% include navbar.html %}
+    <!-- <div class="page-title"> -->
+    <!--   {{page.title}} -->
+    <!-- </div> -->
+    <div class="body">
+      <div class="content">
+        {{ content }}
+      </div>
+      {% unless page.url == "/articles/" %}
+      <aside class="recent-posts">
+        <h3>Recent Posts</h3>
+        <ul>
+          {% for post in site.posts limit:5 %}
+          <li>
+            <div>
+              <span class="recent-title"><a href="{{ post.url }}">{{ post.title }}</a></span>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </aside>
+      {% endunless %}
+    </div>
+    {% include footer.html %}
+    </main>
+</body>

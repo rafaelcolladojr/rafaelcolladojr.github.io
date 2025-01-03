@@ -1,0 +1,26 @@
+<div class="header">
+  <header>
+    <div id="title">
+      <a class="site-title" href="{{ site.url }}{{ site.baseurl }}/">
+        <h1>{{ site.title }}</h1>
+      </a>
+    </div>
+  </header>
+  <nav>
+    <ul>
+      {% for x in site.navbar %}
+      {% if x.absolute-link %}
+      {% assign x-url = x.absolute-link %}
+      {% else %}
+      {% assign x-url = x.link %}
+      {% endif %}
+      <li class="{% if page.url == x-url %}active{% endif %}">
+        <a href="{{ x-url }}">{{ x.name }}</a>
+      </li>
+      {% if forloop.last == false %}|{% endif %}
+      {% endfor %}
+    </ul>
+  </nav>
+  <div>
+  </div>
+</div>

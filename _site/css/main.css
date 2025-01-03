@@ -1,0 +1,207 @@
+html,
+body {
+  height: 100%;
+  background-color: #fff6d0;
+  font-family: "JetBrains Mono", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+body {
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 auto;
+  padding: 0 auto;
+  font-family: "JetBrains Mono", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+p {
+  margin: 30px auto;
+}
+
+p:nth-child(1) {
+  margin: 0 auto;
+}
+
+a,
+a:visited {
+  color: #c84d00;
+  text-decoration: none;
+}
+
+#title>a {
+  color: black;
+}
+
+.container {
+  display: flex;
+  height: 100%;
+  margin: 0 auto;
+  max-width: 1100px;
+  padding: 0 24px 0 24px;
+  flex-direction: column;
+  gap: 64px;
+}
+
+.header {
+  display: flex;
+  margin-top: 24px;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 48px;
+  row-gap: 12px;
+}
+
+.body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 48px;
+  flex-grow: 1;
+}
+
+/* Navigation */
+
+ul {
+  margin: 0px auto;
+  padding: 0px;
+}
+
+nav ul li {
+  display: inline-block;
+}
+
+nav ul li>a {
+  color: black !important;
+}
+
+nav ul li.active a {
+  color: #c84d00 !important;
+}
+
+/* Recent posts */
+
+.recent-posts {
+  display: none;
+  flex-direction: column;
+  align-items: end;
+  gap: 16px;
+}
+
+.recent-posts h3 {
+  margin-right: 0;
+  text-decoration: underline;
+}
+
+.recent-posts ul li {
+  list-style: none;
+  text-align: end;
+}
+
+/* Articles */
+
+.articles {
+  display: flex;
+}
+
+.articles ul li {
+  display: flex;
+  gap: 30px;
+}
+
+.post-data {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+/* Footer */
+
+.footer {
+  display: flex;
+  margin-bottom: 24px;
+  justify-content: center;
+}
+
+#glider {
+  width: 16px;
+  height: 16px;
+  background: url("https://user-images.githubusercontent.com/7101404/154202000-86d49901-a42e-4025-b5ce-75c2b5da3e7c.png") bottom center no-repeat;
+  background-size: contain;
+}
+
+@media (min-width: 768px) {
+  .recent-posts {
+    display: flex;
+  }
+}
+
+/* Code snippets */
+pre,
+code {
+  font-size: 1em;
+  line-height: 18px;
+  background-color: #1e1e2e;
+  color: #cdd6f4;
+  padding: 10px;
+  border-radius: 8px;
+  display: block;
+  white-space: pre-wrap;
+}
+
+p code {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: #363a4f;
+}
+
+.token.comment {
+  color: #6272a4;
+  font-style: italic;
+}
+
+.o,
+.o+.o,
+.o+.n,
+.n+.n,
+.n+.o {
+  /* Style contiguous .o and .n elements */
+  color: #a6adc8;
+  font-style: italic;
+}
+
+.n {
+  color: #b4befe;
+}
+
+.s1,
+.s2 {
+  color: #a6e3a1;
+}
+
+.nb {
+  color: #fab387;
+}
+
+.kc {
+  color: #fab387;
+}
+
+.kd {
+  color: #cba6f7;
+}
+
+.k {
+  color: #cba6f7;
+}

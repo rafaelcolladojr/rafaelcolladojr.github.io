@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  
+  
+
+  <title>Flutter without Vscode: A Neovim Story - Rafael Collado</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="blog, rafaelcolladojr, Rafael Collado, jekyll">
+  <meta name="author" content="rafaelcolladojr">
+
+  <meta name="description" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="http://localhost:4000/css/main.css">
+  <link rel="shortcut-icon" type="image/ico" href="http://localhost:4000/">
+
+  <!-- For Facebook -->
+  <meta property="og:title" content="Flutter without Vscode: A Neovim Story - Rafael Collado" />
+  <meta property="og:image" itemprop="image" content="http://localhost:4000/" />
+  <meta property="og:description" content="" />
+
+  <!-- For Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Flutter without Vscode: A Neovim Story - Rafael Collado" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="http://localhost:4000/" />
+</head>
+
+
+<body>
+  <div class="container">
+    <div class="header">
+  <header>
+    <div id="title">
+      <a class="site-title" href="http://localhost:4000/">
+        <h1>Rafael Collado</h1>
+      </a>
+    </div>
+  </header>
+  <nav>
+    <ul>
+      
+      
+      <li class="">
+        <a href="/">Home</a>
+      </li>
+      |
+      
+      
+      <li class="">
+        <a href="/articles/">Articles</a>
+      </li>
+      
+      
+    </ul>
+  </nav>
+  <div>
+  </div>
+</div>
+
+    <!-- <div class="page-title"> -->
+    <!--   Flutter without Vscode: A Neovim Story -->
+    <!-- </div> -->
+    <div class="body">
+      <div class="content">
+        <h1 class="post-title">
+          Flutter without Vscode: A Neovim Story
+        </h1>
+        <p>Google’s Flutter framework is rapidly gaining popularity among developers for enabling the creation of beautiful, natively-compiled applications for mobile, web, and desktop from a single codebase. However, the abundance of Flutter tutorials focused on editors like VSCode and Android Studio can be discouraging for developers who use or are interested in <strong>Neovim</strong>.<br />
+<br />
+Let’s put that to an end.</p>
+
+<h2 id="why-neovim">Why Neovim?</h2>
+<p><strong>Neovim</strong> is the terminal text editor that might finally earn your engineer father’s approval. It’s a modern take on <strong>Vim</strong>, a highly configurable and efficient editor celebrated for its powerful modal editing capabilities and mouse-free philosophy.<br />
+Between its lightweight, resource efficient nature and keyboard-centric workflow, <strong>Neovim</strong> can easily make Flutter’s already fast UI workflow blazingly fast.<br />
+<br />
+It’s also written and configured in <strong>Lua</strong>.</p>
+
+<h3 id="the-setup">The setup</h3>
+<p>To grant <strong>Neovim</strong> all the bells and whistles of a VSCode Flutter experience, we’ll take advantage of two key plugins: 
+<a href="https://github.com/dart-lang/dart-vim-plugin">dart-vim-plugin</a> and <a href="https://github.com/nvim-flutter/flutter-tools.nvim">flutter-tools.nvim</a>.</p>
+
+<blockquote>
+  <p>Note: This tutorial assumes you have a basic <strong>Neovim</strong> configuration in place. For help setting <strong>Neovim</strong> up to this point, consider using <a href="https://github.com/nvim-lua/kickstart.nvim"><em>kickstart.nvim</em></a> to get a basic IDE experience set up.</p>
+</blockquote>
+
+<h3 id="dart-vim-plugin">dart-vim-plugin</h3>
+<p><code class="language-plaintext highlighter-rouge">dart-vim-plugin</code> adds important Dart language support to Vim. It offers features such as syntax highlighting, code indentation, and basic code completion.
+Start by importing the plugin via your preferred plugin manager, I use <a href="https://github.com/folke/lazy.nvim">lazy.nvim</a>:</p>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span><span class="p">(</span><span class="s2">"lazy"</span><span class="p">).</span><span class="n">setup</span><span class="p">({</span>
+
+  <span class="o">//</span> <span class="o">...</span> <span class="n">Among</span> <span class="n">your</span> <span class="n">other</span> <span class="n">plugins</span>
+
+  <span class="s1">'dart-lang/dart-vim-plugin'</span><span class="p">,</span>
+<span class="p">})</span>
+</code></pre></div></div>
+<p>We can now enable this plugin’s features via the following global variables:</p>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vim</span><span class="p">.</span><span class="n">g</span><span class="p">.</span><span class="n">dart_style_guide</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">g</span><span class="p">.</span><span class="n">dart_format_on_save</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">g</span><span class="p">.</span><span class="n">dart_trailing_comma_indent</span> <span class="o">=</span> <span class="kc">true</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">dart_style_guide</code> sets the tab width used when auto-formatting. In our case, we mimic the VSCode experience by setting it to two spaces.<br />
+<code class="language-plaintext highlighter-rouge">dart_format_on_save</code> is self-explanatory; it triggers the Dart auto-formatter upon writing the buffer.<br />
+<code class="language-plaintext highlighter-rouge">dart_trailing_comma_indent</code>, my favorite, ensures proper indentation when adding a trailing comma to comma-separated lists like function parameters and argument listings.</p>
+
+<h3 id="flutter-toolsnvim">flutter-tools.nvim</h3>
+<p><code class="language-plaintext highlighter-rouge">flutter-tools.nvim</code> is a plugin that provides all the functionality we know and love from the Flutter platform: 
+hot reload/restart, device management, debugger support, and integration with the Dart analysis server for real-time code analysis.<br />
+The setup for this plugin is a bit more involved, but nothing we can’t handle.<br />
+Just like before, we first add the plugin:</p>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span><span class="p">(</span><span class="s2">"lazy"</span><span class="p">).</span><span class="n">setup</span><span class="p">({</span>
+
+  <span class="o">//</span> <span class="o">...</span> <span class="n">Among</span> <span class="n">your</span> <span class="n">other</span> <span class="n">plugins</span>
+
+  <span class="s1">'dart-lang/dart-vim-plugin'</span><span class="p">,</span>
+  <span class="p">{</span>
+    <span class="s1">'akinsho/flutter-tools.nvim'</span><span class="p">,</span>
+    <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s1">'nvim-lua/plenary.nvim'</span><span class="p">,</span>
+      <span class="s1">'stevearc/dressing.nvim'</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">})</span>
+</code></pre></div></div>
+<blockquote>
+  <p>The plugin depends on <strong>plenary.nvim</strong> and <strong>dressing.nvim</strong>, so make sure to include them as <code class="language-plaintext highlighter-rouge">dependencies</code>.</p>
+</blockquote>
+
+<p>Because <code class="language-plaintext highlighter-rouge">flutter-tools.nvim</code> directly works with the Dart language server, we can (and should) avoid configuring dartls in our lspconfig setup.
+For a near-VSCode experience, setup the plugin with the following snippet:</p>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span><span class="p">(</span><span class="s1">'flutter-tools'</span><span class="p">).</span><span class="n">setup</span><span class="p">({</span>
+  <span class="n">decorations</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">statusline</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="n">app_version</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="n">device</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+  <span class="n">widget_guides</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="n">closing_tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">highlight</span> <span class="o">=</span> <span class="s1">'Comment'</span><span class="p">,</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s1">'//'</span><span class="p">,</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="n">lsp</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="n">enabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="n">background</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="n">foreground</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="n">virtual_text</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="n">virtual_text_str</span> <span class="o">=</span> <span class="s2">"■"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="n">showTodos</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="n">completeFunctionCalls</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="n">enableSnippets</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">})</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">decorations</code> controls what information is shown in the buffer status line.</p>
+
+<p><code class="language-plaintext highlighter-rouge">widget_guides</code> draws the widget guide lines indicating the parent-child relationships within the buffer. While still experimental, this feature can come in handy!</p>
+
+<p><code class="language-plaintext highlighter-rouge">closing_tags</code> determines the appearance of closing tags - the “comments” after the closing braces of a widget. This setup ensures the ‘Comment’ highlight group is used when rendering them.</p>
+
+<p><code class="language-plaintext highlighter-rouge">lsp</code> describes how the built-in Dart LSP configuration behaves. In color we’ve enabled virtual text messages for warnings, syntax errors, etc. And in settings, we’re enabling features like TODO diagnostics, auto-completing function calls with required parameters, and including snippets like
+<code class="language-plaintext highlighter-rouge">stless -&gt; StatelessWidget…</code> in code completion.</p>
+
+<p>With that configured, we now have access to some useful commands, only four of which we really need to know for now:</p>
+
+<p><code class="language-plaintext highlighter-rouge">:FlutterRun</code> Starts the Flutter application in the current directory<br />
+<code class="language-plaintext highlighter-rouge">:FlutterQuit</code> Quits the currently running Flutter application<br />
+<code class="language-plaintext highlighter-rouge">:FlutterReload</code> Performs a Hot Reload on the currently running app<br />
+<code class="language-plaintext highlighter-rouge">:FlutterRestart</code> Performs a Hot Restart on the currently running app</p>
+
+<p>Now while you can type out these commands whenever you need them, part of the <strong>Neovim</strong> fun is turning things into convenient keybindings:</p>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;ff'</span><span class="p">,</span> <span class="s1">':FlutterRun&lt;CR&gt;'</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;fq'</span><span class="p">,</span> <span class="s1">':FlutterQuit&lt;CR&gt;'</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;fr'</span><span class="p">,</span> <span class="s1">':FlutterReload&lt;CR&gt;'</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;fR'</span><span class="p">,</span> <span class="s1">':FlutterRestart&lt;CR&gt;'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="debugging">Debugging</h2>
+
+<p>If you’re like me and exclusively develop in Flutter using a debugger, I’ve got you covered. To achieve this, we’ll need the help of two more plugins:<br />
+<a href="https://github.com/mfussenegger/nvim-dap">nvim-dap</a> and <a href="https://github.com/rcarriga/nvim-dap-ui">nvim-dap-ui</a>.</p>
+
+<p>By connecting these two plugins to our beloved <code class="language-plaintext highlighter-rouge">flutter-tools.nvim</code> we can achieve a pretty smooth Flutter debugging experience:</p>
+
+<p>Start by configuring the plugins, we’ll take it straight from their README:</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span><span class="p">(</span><span class="s1">'dapui'</span><span class="p">).</span><span class="n">setup</span><span class="p">()</span>
+<span class="kd">local</span> <span class="n">dap</span><span class="p">,</span> <span class="n">dapui</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"dap"</span><span class="p">),</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"dapui"</span><span class="p">)</span>
+<span class="n">dap</span><span class="p">.</span><span class="n">listeners</span><span class="p">.</span><span class="n">after</span><span class="p">.</span><span class="n">event_initialized</span><span class="p">[</span><span class="s2">"dapui_config"</span><span class="p">]</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span>
+ <span class="n">dapui</span><span class="p">.</span><span class="n">open</span><span class="p">()</span>
+<span class="k">end</span>
+<span class="n">dap</span><span class="p">.</span><span class="n">listeners</span><span class="p">.</span><span class="n">before</span><span class="p">.</span><span class="n">event_terminated</span><span class="p">[</span><span class="s2">"dapui_config"</span><span class="p">]</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span>
+ <span class="n">dapui</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">end</span>
+<span class="n">dap</span><span class="p">.</span><span class="n">listeners</span><span class="p">.</span><span class="n">before</span><span class="p">.</span><span class="n">event_exited</span><span class="p">[</span><span class="s2">"dapui_config"</span><span class="p">]</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span>
+ <span class="n">dapui</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">end</span>
+
+<span class="kd">local</span> <span class="n">sign</span> <span class="o">=</span> <span class="n">vim</span><span class="p">.</span><span class="n">fn</span><span class="p">.</span><span class="n">sign_define</span>
+<span class="n">sign</span><span class="p">(</span><span class="s2">"DapBreakpoint"</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">"●"</span><span class="p">,</span> <span class="n">texthl</span> <span class="o">=</span> <span class="s2">"DapBreakpoint"</span><span class="p">,</span> <span class="n">linehl</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span> <span class="n">numhl</span> <span class="o">=</span> <span class="s2">""</span><span class="p">})</span>
+<span class="n">sign</span><span class="p">(</span><span class="s2">"DapBreakpointCondition"</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">"●"</span><span class="p">,</span> <span class="n">texthl</span> <span class="o">=</span> <span class="s2">"DapBreakpointCondition"</span><span class="p">,</span> <span class="n">linehl</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span> <span class="n">numhl</span> <span class="o">=</span> <span class="s2">""</span><span class="p">})</span>
+<span class="n">sign</span><span class="p">(</span><span class="s2">"DapLogPoint"</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">"◆"</span><span class="p">,</span> <span class="n">texthl</span> <span class="o">=</span> <span class="s2">"DapLogPoint"</span><span class="p">,</span> <span class="n">linehl</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span> <span class="n">numhl</span> <span class="o">=</span> <span class="s2">""</span><span class="p">})</span>
+
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;db'</span><span class="p">,</span> <span class="s1">':lua require("dap").toggle_breakpoint()&lt;CR&gt;'</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;dB'</span><span class="p">,</span> <span class="s1">':lua require("dap").set_breakpoint(vim.fn.input("Breakpoint Condition: "))&lt;CR&gt;'</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;dd'</span><span class="p">,</span> <span class="s1">':lua require("dap").continue()&lt;CR&gt;'</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;do'</span><span class="p">,</span> <span class="s1">':lua require("dap").step_over()&lt;CR&gt;'</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;di'</span><span class="p">,</span> <span class="s1">':lua require("dap").step_ito()&lt;CR&gt;'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Then enable debugging via dap in our <code class="language-plaintext highlighter-rouge">flutter-tools.nvim</code> configuration:</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span><span class="p">(</span><span class="s1">'flutter-tools'</span><span class="p">).</span><span class="n">setup</span> <span class="p">{</span>
+  <span class="n">decorations</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">statusline</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="n">app_version</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="n">device</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+  <span class="n">widget_guides</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="n">closing_tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">highlight</span> <span class="o">=</span> <span class="s1">'Comment'</span><span class="p">,</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s1">'//'</span><span class="p">,</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="n">dev_log</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="n">lsp</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="n">enabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="n">background</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="n">foreground</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="n">virtual_text</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="n">virtual_text_str</span> <span class="o">=</span> <span class="s2">"■"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="n">showTodos</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="n">completeFunctionCalls</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="n">enableSnippets</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+  <span class="n">debugger</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="n">run_via_dap</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="n">exception_breakpoints</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="n">register_configurations</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
+      <span class="nb">require</span><span class="p">(</span><span class="s1">'dap'</span><span class="p">).</span><span class="n">configurations</span><span class="p">.</span><span class="n">dart</span> <span class="o">=</span> <span class="p">{}</span>
+      <span class="nb">require</span><span class="p">(</span><span class="s2">"dap.ext.vscode"</span><span class="p">).</span><span class="n">load_launchjs</span><span class="p">()</span>
+    <span class="k">end</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Dap integration is enabled by including the <code class="language-plaintext highlighter-rouge">debugger</code> map in our configuration object.</p>
+</blockquote>
+
+<p>As a bonus, this setup allows us to use our pre-existing VSCode <code class="language-plaintext highlighter-rouge">launch.js</code> configurations from within <strong>Neovim</strong>. Running the <code class="language-plaintext highlighter-rouge">:FlutterRun</code> command, or simply using our new **<leader>ff** keybinding, will display a list of our VSCode run configurations to select from.</leader></p>
+
+<p>Lastly, the <code class="language-plaintext highlighter-rouge">nvim-dap</code> README provides some handy keybindings to navigate the debugger - things like breakpoint management and code traversal:</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;db'</span><span class="p">,</span> <span class="s1">':lua require("dap").toggle_breakpoint()&lt;CR&gt;'</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;dB'</span><span class="p">,</span> <span class="s1">':lua require("dap").set_breakpoint(vim.fn.input("Breakpoint Condition: "))&lt;CR&gt;'</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;dd'</span><span class="p">,</span> <span class="s1">':lua require("dap").continue()&lt;CR&gt;'</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;do'</span><span class="p">,</span> <span class="s1">':lua require("dap").step_over()&lt;CR&gt;'</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;di'</span><span class="p">,</span> <span class="s1">':lua require("dap").step_into()&lt;CR&gt;'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>When I began my Flutter career, I was afraid I’d be permanently forced to work in VSCode and ditch my naive fantasy of living in the terminal.</p>
+
+<p>However, thanks to the rich community overlap between Flutter and <strong>Neovim</strong>, I was able to smoothly transition from VSCode to <strong>Neovim</strong> with just four plugins. And now so can you!</p>
+
+      </div>
+      
+    </div>
+    <div class="footer">
+  
+  <br>
+  
+  <div id="glider" />
+</div>
+
+    </main>
+</body>
+<!---->
+<!-- <div class="page-subtitle"> -->
+<!--    -->
+<!--    -->
+<!--   <b>[</b> -->
+<!--    -->
+<!--   <a href="/tags/#flutter" title="flutter">flutter</a> -->
+<!--    -->
+<!--   , -->
+<!--    -->
+<!--    -->
+<!--    -->
+<!--   <a href="/tags/#dart" title="dart">dart</a> -->
+<!--    -->
+<!--   , -->
+<!--    -->
+<!--    -->
+<!--    -->
+<!--   <a href="/tags/#neovim" title="neovim">neovim</a> -->
+<!--    -->
+<!--   , -->
+<!--    -->
+<!--    -->
+<!--    -->
+<!--   <a href="/tags/#tutorial" title="tutorial">tutorial</a> -->
+<!--    -->
+<!--   , -->
+<!--    -->
+<!--    -->
+<!--    -->
+<!--   <a href="/tags/#plugin" title="plugin">plugin</a> -->
+<!--    -->
+<!--   , -->
+<!--    -->
+<!--    -->
+<!--    -->
+<!--   <a href="/tags/#lsp" title="lsp">lsp</a> -->
+<!--    -->
+<!--   , -->
+<!--    -->
+<!--    -->
+<!--    -->
+<!--   <a href="/tags/#debug" title="debug">debug</a> -->
+<!--    -->
+<!--   <b>]</b> -->
+<!--    -->
+<!--    -->
+<!-- </div> -->
