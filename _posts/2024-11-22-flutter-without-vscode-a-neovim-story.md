@@ -15,7 +15,7 @@ Between its lightweight, resource efficient nature and keyboard-centric workflow
 <br>
 It's also written and configured in **Lua**.  
 
-### The setup
+## The setup
 To grant **Neovim** all the bells and whistles of a VSCode Flutter experience, we'll take advantage of two key plugins: 
 [dart-vim-plugin](https://github.com/dart-lang/dart-vim-plugin) and [flutter-tools.nvim](https://github.com/nvim-flutter/flutter-tools.nvim).
 
