@@ -16,19 +16,28 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+p {
   margin: 0 auto;
-  padding: 0 auto;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
+  margin-block-start: 0;
+  margin-block-end: 0;
   font-family: "JetBrains Mono", serif;
   font-optical-sizing: auto;
   font-style: normal;
+  line-height: 28px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 2em;
 }
 
 p {
-  margin: 30px auto;
-  line-height: 1.7em;
+  margin-top: 1em;
 }
 
 a,
@@ -38,13 +47,15 @@ a:visited {
 }
 
 blockquote {
-  margin: 0 auto;
+  margin-top: 2em;
+  margin-left: -24px;
+  padding-left: 20px;
+  box-shadow: inset 3px 0 0 0 #494d64;
 }
 
 blockquote p {
-  border-left: #494d64 solid 3px;
-  padding: 10px 30px;
   font-style: italic;
+  font-weight: 200;
 }
 
 blockquote strong:nth-child(1) {
@@ -142,6 +153,7 @@ nav ul li.active a {
 
 .footer {
   display: flex;
+  margin-top: 48px;
   margin-bottom: 24px;
   justify-content: center;
 }
@@ -170,6 +182,10 @@ code {
   border-radius: 8px;
   display: block;
   white-space: pre-wrap;
+}
+
+pre {
+  margin-top: 2em;
 }
 
 p code {
