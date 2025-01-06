@@ -3,6 +3,7 @@ layout: post
 title: "Flutter without Vscode: A Neovim Story"
 category: tutorials
 tags: flutter dart neovim tutorial plugin lsp debug
+medium: "https://medium.com/easy-flutter/flutter-without-vscode-a-neovim-story-fc9f0f7633b0"
 ---
 
 Google's Flutter framework is rapidly gaining popularity among developers for enabling the creation of beautiful, natively-compiled applications for mobile, web, and desktop from a single codebase. However, the abundance of Flutter tutorials focused on editors like VSCode and Android Studio can be discouraging for developers who use or are interested in **Neovim**.  
