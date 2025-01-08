@@ -16,7 +16,6 @@ h2,
 h3,
 h4,
 h5,
-h6,
 p {
   margin: 0 auto;
   margin-block-start: 0;
@@ -31,8 +30,7 @@ h1,
 h2,
 h3,
 h4,
-h5,
-h6 {
+h5 {
   margin-top: 2em;
 }
 
@@ -60,6 +58,14 @@ blockquote p {
 
 blockquote strong:nth-child(1) {
   color: #494d64;
+}
+
+/* h6 = caption */
+h6 {
+  margin-top: 0;
+  text-align: center;
+  font-size: 0.8em;
+  font-weight: 200;
 }
 
 #title>a {
@@ -221,11 +227,13 @@ pre {
   margin-top: 2em;
 }
 
-p code {
+p code,
+h6 code {
   display: inline-block;
   padding: 2px 6px;
   border-radius: 4px;
   background-color: #363a4f;
+  vertical-align: middle;
 }
 
 .token.comment {

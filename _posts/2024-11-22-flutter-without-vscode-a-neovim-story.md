@@ -63,7 +63,8 @@ require("lazy").setup({
   },
 })
 ```
-> The plugin depends on **plenary.nvim** and **dressing.nvim**, so make sure to include them as `dependencies`.  
+
+###### The plugin depends on **plenary.nvim** and **dressing.nvim**, so make sure to include them as `dependencies`.  
 
 Because `flutter-tools.nvim` directly works with the Dart language server, we can (and should) avoid configuring dartls in our lspconfig setup.
 For a near-VSCode experience, setup the plugin with the following snippet:  
