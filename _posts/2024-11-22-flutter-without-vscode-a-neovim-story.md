@@ -205,7 +205,7 @@ require("flutter-tools").setup {
 }
 ```
 
-> Dap integration is enabled by including the `debugger` map in our configuration object.
+###### Dap integration is enabled by including the `debugger` map in our configuration object.
 
 As a bonus, this setup allows us to use our pre-existing VSCode `launch.js` configurations from within **Neovim**. Running the `:FlutterRun` command, or simply using our new **\<leader\>ff** keybinding, will display a list of our VSCode run configurations to select from.  
 
