@@ -176,7 +176,6 @@ nav ul li.active a {
 .footer {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 24px;
   justify-content: space-between;
   font-size: 0.8em;
 }
@@ -192,6 +191,7 @@ nav ul li.active a {
 #copyright {
   flex: 1 0 256px;
   text-align: left;
+  margin-bottom: 24px;
 }
 
 #socials {
