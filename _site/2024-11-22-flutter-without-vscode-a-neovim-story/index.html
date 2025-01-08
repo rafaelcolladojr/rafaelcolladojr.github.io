@@ -20,6 +20,9 @@
     rel="stylesheet">
   <link rel="stylesheet" href="http://localhost:4000/css/main.css">
   <link rel="shortcut-icon" type="image/ico" href="http://localhost:4000/">
+  
+  <link rel="canonical" href="https://medium.com/easy-flutter/flutter-without-vscode-a-neovim-story-fc9f0f7633b0" />
+  
 
   <!-- For Facebook -->
   <meta property="og:title" content="Flutter without Vscode: A Neovim Story - Rafael Collado" />
@@ -111,7 +114,7 @@ Start by importing the plugin via your preferred plugin manager, I use <a href="
 
   <span class="o">//</span> <span class="o">...</span> <span class="n">Among</span> <span class="n">your</span> <span class="n">other</span> <span class="n">plugins</span>
 
-  <span class="s1">'dart-lang/dart-vim-plugin'</span><span class="p">,</span>
+  <span class="s2">"dart-lang/dart-vim-plugin"</span><span class="p">,</span>
 <span class="p">})</span>
 </code></pre></div></div>
 <p>We can now enable this plugin’s features via the following global variables:</p>
@@ -132,12 +135,12 @@ Just like before, we first add the plugin:</p>
 
   <span class="o">//</span> <span class="o">...</span> <span class="n">Among</span> <span class="n">your</span> <span class="n">other</span> <span class="n">plugins</span>
 
-  <span class="s1">'dart-lang/dart-vim-plugin'</span><span class="p">,</span>
+  <span class="s2">"dart-lang/dart-vim-plugin"</span><span class="p">,</span>
   <span class="p">{</span>
-    <span class="s1">'akinsho/flutter-tools.nvim'</span><span class="p">,</span>
+    <span class="s2">"akinsho/flutter-tools.nvim"</span><span class="p">,</span>
     <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="s1">'nvim-lua/plenary.nvim'</span><span class="p">,</span>
-      <span class="s1">'stevearc/dressing.nvim'</span><span class="p">,</span>
+      <span class="s2">"nvim-lua/plenary.nvim"</span><span class="p">,</span>
+      <span class="s2">"stevearc/dressing.nvim"</span><span class="p">,</span>
     <span class="p">},</span>
   <span class="p">},</span>
 <span class="p">})</span>
@@ -148,7 +151,7 @@ Just like before, we first add the plugin:</p>
 
 <p>Because <code class="language-plaintext highlighter-rouge">flutter-tools.nvim</code> directly works with the Dart language server, we can (and should) avoid configuring dartls in our lspconfig setup.
 For a near-VSCode experience, setup the plugin with the following snippet:</p>
-<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span><span class="p">(</span><span class="s1">'flutter-tools'</span><span class="p">).</span><span class="n">setup</span><span class="p">({</span>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span><span class="p">(</span><span class="s2">"flutter-tools"</span><span class="p">).</span><span class="n">setup</span><span class="p">({</span>
   <span class="n">decorations</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">statusline</span> <span class="o">=</span> <span class="p">{</span>
       <span class="n">app_version</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
@@ -159,8 +162,8 @@ For a near-VSCode experience, setup the plugin with the following snippet:</p>
     <span class="n">enabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
   <span class="p">},</span>
   <span class="n">closing_tags</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">highlight</span> <span class="o">=</span> <span class="s1">'Comment'</span><span class="p">,</span>
-    <span class="n">prefix</span> <span class="o">=</span> <span class="s1">'//'</span><span class="p">,</span>
+    <span class="n">highlight</span> <span class="o">=</span> <span class="s2">"Comment"</span><span class="p">,</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s2">"//"</span><span class="p">,</span>
     <span class="n">enabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
   <span class="p">},</span>
   <span class="n">lsp</span> <span class="o">=</span> <span class="p">{</span>
@@ -196,10 +199,10 @@ For a near-VSCode experience, setup the plugin with the following snippet:</p>
 <code class="language-plaintext highlighter-rouge">:FlutterRestart</code> Performs a Hot Restart on the currently running app</p>
 
 <p>Now while you can type out these commands whenever you need them, part of the <strong>Neovim</strong> fun is turning things into convenient keybindings:</p>
-<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;ff'</span><span class="p">,</span> <span class="s1">':FlutterRun&lt;CR&gt;'</span><span class="p">)</span>
-<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;fq'</span><span class="p">,</span> <span class="s1">':FlutterQuit&lt;CR&gt;'</span><span class="p">)</span>
-<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;fr'</span><span class="p">,</span> <span class="s1">':FlutterReload&lt;CR&gt;'</span><span class="p">)</span>
-<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;fR'</span><span class="p">,</span> <span class="s1">':FlutterRestart&lt;CR&gt;'</span><span class="p">)</span>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"&lt;leader&gt;ff"</span><span class="p">,</span> <span class="s2">":FlutterRun&lt;CR&gt;"</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"&lt;leader&gt;fq"</span><span class="p">,</span> <span class="s2">":FlutterQuit&lt;CR&gt;"</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"&lt;leader&gt;fr"</span><span class="p">,</span> <span class="s2">":FlutterReload&lt;CR&gt;"</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"&lt;leader&gt;fR"</span><span class="p">,</span> <span class="s2">":FlutterRestart&lt;CR&gt;"</span><span class="p">)</span>
 </code></pre></div></div>
 
 <h2 id="debugging">Debugging</h2>
@@ -211,7 +214,7 @@ For a near-VSCode experience, setup the plugin with the following snippet:</p>
 
 <p>Start by configuring the plugins, we’ll take it straight from their README:</p>
 
-<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span><span class="p">(</span><span class="s1">'dapui'</span><span class="p">).</span><span class="n">setup</span><span class="p">()</span>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span><span class="p">(</span><span class="s2">"dapui"</span><span class="p">).</span><span class="n">setup</span><span class="p">()</span>
 <span class="kd">local</span> <span class="n">dap</span><span class="p">,</span> <span class="n">dapui</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"dap"</span><span class="p">),</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"dapui"</span><span class="p">)</span>
 <span class="n">dap</span><span class="p">.</span><span class="n">listeners</span><span class="p">.</span><span class="n">after</span><span class="p">.</span><span class="n">event_initialized</span><span class="p">[</span><span class="s2">"dapui_config"</span><span class="p">]</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span>
  <span class="n">dapui</span><span class="p">.</span><span class="n">open</span><span class="p">()</span>
@@ -228,16 +231,16 @@ For a near-VSCode experience, setup the plugin with the following snippet:</p>
 <span class="n">sign</span><span class="p">(</span><span class="s2">"DapBreakpointCondition"</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">"●"</span><span class="p">,</span> <span class="n">texthl</span> <span class="o">=</span> <span class="s2">"DapBreakpointCondition"</span><span class="p">,</span> <span class="n">linehl</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span> <span class="n">numhl</span> <span class="o">=</span> <span class="s2">""</span><span class="p">})</span>
 <span class="n">sign</span><span class="p">(</span><span class="s2">"DapLogPoint"</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">"◆"</span><span class="p">,</span> <span class="n">texthl</span> <span class="o">=</span> <span class="s2">"DapLogPoint"</span><span class="p">,</span> <span class="n">linehl</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span> <span class="n">numhl</span> <span class="o">=</span> <span class="s2">""</span><span class="p">})</span>
 
-<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;db'</span><span class="p">,</span> <span class="s1">':lua require("dap").toggle_breakpoint()&lt;CR&gt;'</span><span class="p">)</span>
-<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;dB'</span><span class="p">,</span> <span class="s1">':lua require("dap").set_breakpoint(vim.fn.input("Breakpoint Condition: "))&lt;CR&gt;'</span><span class="p">)</span>
-<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;dd'</span><span class="p">,</span> <span class="s1">':lua require("dap").continue()&lt;CR&gt;'</span><span class="p">)</span>
-<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;do'</span><span class="p">,</span> <span class="s1">':lua require("dap").step_over()&lt;CR&gt;'</span><span class="p">)</span>
-<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;di'</span><span class="p">,</span> <span class="s1">':lua require("dap").step_ito()&lt;CR&gt;'</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"&lt;leader&gt;db"</span><span class="p">,</span> <span class="s2">":lua require('dap').toggle_breakpoint()&lt;CR&gt;"</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"&lt;leader&gt;dB"</span><span class="p">,</span> <span class="s2">":lua require('dap').set_breakpoint(vim.fn.input("</span><span class="n">Breakpoint</span> <span class="n">Condition</span><span class="p">:</span> <span class="s2">"))&lt;CR&gt;"</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"&lt;leader&gt;dd"</span><span class="p">,</span> <span class="s2">":lua require('dap').continue()&lt;CR&gt;"</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"&lt;leader&gt;do"</span><span class="p">,</span> <span class="s2">":lua require('dap').step_over()&lt;CR&gt;"</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"&lt;leader&gt;di"</span><span class="p">,</span> <span class="s2">":lua require('dap').step_into()&lt;CR&gt;"</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>Then enable debugging via dap in our <code class="language-plaintext highlighter-rouge">flutter-tools.nvim</code> configuration:</p>
 
-<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span><span class="p">(</span><span class="s1">'flutter-tools'</span><span class="p">).</span><span class="n">setup</span> <span class="p">{</span>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span><span class="p">(</span><span class="s2">"flutter-tools"</span><span class="p">).</span><span class="n">setup</span> <span class="p">{</span>
   <span class="n">decorations</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">statusline</span> <span class="o">=</span> <span class="p">{</span>
       <span class="n">app_version</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
@@ -248,8 +251,8 @@ For a near-VSCode experience, setup the plugin with the following snippet:</p>
     <span class="n">enabled</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
   <span class="p">},</span>
   <span class="n">closing_tags</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">highlight</span> <span class="o">=</span> <span class="s1">'Comment'</span><span class="p">,</span>
-    <span class="n">prefix</span> <span class="o">=</span> <span class="s1">'//'</span><span class="p">,</span>
+    <span class="n">highlight</span> <span class="o">=</span> <span class="s2">"Comment"</span><span class="p">,</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s2">"//"</span><span class="p">,</span>
     <span class="n">enabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
   <span class="p">},</span>
   <span class="n">dev_log</span> <span class="o">=</span> <span class="p">{</span>
@@ -274,7 +277,7 @@ For a near-VSCode experience, setup the plugin with the following snippet:</p>
     <span class="n">run_via_dap</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
     <span class="n">exception_breakpoints</span> <span class="o">=</span> <span class="p">{},</span>
     <span class="n">register_configurations</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
-      <span class="nb">require</span><span class="p">(</span><span class="s1">'dap'</span><span class="p">).</span><span class="n">configurations</span><span class="p">.</span><span class="n">dart</span> <span class="o">=</span> <span class="p">{}</span>
+      <span class="nb">require</span><span class="p">(</span><span class="s2">"dap"</span><span class="p">).</span><span class="n">configurations</span><span class="p">.</span><span class="n">dart</span> <span class="o">=</span> <span class="p">{}</span>
       <span class="nb">require</span><span class="p">(</span><span class="s2">"dap.ext.vscode"</span><span class="p">).</span><span class="n">load_launchjs</span><span class="p">()</span>
     <span class="k">end</span><span class="p">,</span>
   <span class="p">},</span>
@@ -289,11 +292,11 @@ For a near-VSCode experience, setup the plugin with the following snippet:</p>
 
 <p>Lastly, the <code class="language-plaintext highlighter-rouge">nvim-dap</code> README provides some handy keybindings to navigate the debugger - things like breakpoint management and code traversal:</p>
 
-<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;db'</span><span class="p">,</span> <span class="s1">':lua require("dap").toggle_breakpoint()&lt;CR&gt;'</span><span class="p">)</span>
-<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;dB'</span><span class="p">,</span> <span class="s1">':lua require("dap").set_breakpoint(vim.fn.input("Breakpoint Condition: "))&lt;CR&gt;'</span><span class="p">)</span>
-<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;dd'</span><span class="p">,</span> <span class="s1">':lua require("dap").continue()&lt;CR&gt;'</span><span class="p">)</span>
-<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;do'</span><span class="p">,</span> <span class="s1">':lua require("dap").step_over()&lt;CR&gt;'</span><span class="p">)</span>
-<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;leader&gt;di'</span><span class="p">,</span> <span class="s1">':lua require("dap").step_into()&lt;CR&gt;'</span><span class="p">)</span>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"&lt;leader&gt;db"</span><span class="p">,</span> <span class="s2">":lua require('dap').toggle_breakpoint()&lt;CR&gt;"</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"&lt;leader&gt;dB"</span><span class="p">,</span> <span class="s2">":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint Condition: '))&lt;CR&gt;"</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"&lt;leader&gt;dd"</span><span class="p">,</span> <span class="s2">":lua require('dap').continue()&lt;CR&gt;"</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"&lt;leader&gt;do"</span><span class="p">,</span> <span class="s2">":lua require('dap').step_over()&lt;CR&gt;"</span><span class="p">)</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"&lt;leader&gt;di"</span><span class="p">,</span> <span class="s2">":lua require('dap').step_into()&lt;CR&gt;"</span><span class="p">)</span>
 </code></pre></div></div>
 
 <h2 id="conclusion">Conclusion</h2>
@@ -307,10 +310,15 @@ For a near-VSCode experience, setup the plugin with the following snippet:</p>
       
     </div>
     <div class="footer">
-  
-  <br>
-  
-  <div id="glider" />
+  <div id="socials">
+    <a href="https://github.com/rafaelcolladojr">Github</a>
+    |
+    <a href="https://x.com/rafaelcolladojr">X</a>
+    |
+    <a href="https://instagram.com/rafaelcolladojr">Instagram</a>
+  </div>
+  <div id="glider"></div>
+  <div id="copyright">Rafael Collado © All rights reserved.</div>
 </div>
 
     </main>

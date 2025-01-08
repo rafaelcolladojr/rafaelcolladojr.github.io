@@ -23,6 +23,9 @@
     rel="stylesheet">
   <link rel="stylesheet" href="{{ sitedir }}css/main.css">
   <link rel="shortcut-icon" type="image/ico" href="{{ favicon_location }}">
+  {% if page.medium %}
+  <link rel="canonical" href="{{ page.medium }}" />
+  {% endif %}
 
   <!-- For Facebook -->
   <meta property="og:title" content="{{ title }}" />

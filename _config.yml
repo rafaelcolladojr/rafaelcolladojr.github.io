@@ -1,6 +1,6 @@
 title: Rafael Collado
 author: rafaelcolladojr
-subtitle: The life of a  engineer
+subtitle: The life of a vagabond engineer
 
 url: "https://rafaelcollado.com"
 baseurl: ""
@@ -13,11 +13,17 @@ permalink: /:year-:month-:day-:title/
 highlighter: rouge
 
 navbar:
- - name: "Home"
-   link: "/"
- - name: "Articles"
-   link: "/articles/"
- - name: "Resume"
-   link: "/assets/r_collado_resume.pdf"
- # - name: "Articles"
- #   absolute-link: "articles"
+  - name: "Home"
+    link: "/"
+  - name: "Articles"
+    link: "/articles/"
+  - name: "Resume"
+    link: "/assets/r_collado_resume.pdf"
+
+# Footer 
+footer_text: "Yes"
+footer_only_homepage: true
+
+github: "https://github.com/rafaelcolladojr"
+x: "https://x.com/rafaelcolladojr"
+instagram: "https://instagram.com/rafaelcolladojr"

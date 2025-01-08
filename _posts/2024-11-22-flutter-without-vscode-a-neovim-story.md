@@ -30,7 +30,7 @@ require("lazy").setup({
 
   // ... Among your other plugins
 
-  'dart-lang/dart-vim-plugin',
+  "dart-lang/dart-vim-plugin",
 })
 ```
 We can now enable this plugin's features via the following global variables:  
@@ -53,12 +53,12 @@ require("lazy").setup({
 
   // ... Among your other plugins
 
-  'dart-lang/dart-vim-plugin',
+  "dart-lang/dart-vim-plugin",
   {
-    'akinsho/flutter-tools.nvim',
+    "akinsho/flutter-tools.nvim",
     dependencies = {
-      'nvim-lua/plenary.nvim',
-      'stevearc/dressing.nvim',
+      "nvim-lua/plenary.nvim",
+      "stevearc/dressing.nvim",
     },
   },
 })
@@ -68,7 +68,7 @@ require("lazy").setup({
 Because `flutter-tools.nvim` directly works with the Dart language server, we can (and should) avoid configuring dartls in our lspconfig setup.
 For a near-VSCode experience, setup the plugin with the following snippet:  
 ```lua
-require('flutter-tools').setup({
+require("flutter-tools").setup({
   decorations = {
     statusline = {
       app_version = true,
@@ -79,8 +79,8 @@ require('flutter-tools').setup({
     enabled = true,
   },
   closing_tags = {
-    highlight = 'Comment',
-    prefix = '//',
+    highlight = "Comment",
+    prefix = "//",
     enabled = true,
   },
   lsp = {
@@ -117,10 +117,10 @@ With that configured, we now have access to some useful commands, only four of w
 
 Now while you can type out these commands whenever you need them, part of the **Neovim** fun is turning things into convenient keybindings:  
 ```lua
-vim.keymap.set('n', '<leader>ff', ':FlutterRun<CR>')
-vim.keymap.set('n', '<leader>fq', ':FlutterQuit<CR>')
-vim.keymap.set('n', '<leader>fr', ':FlutterReload<CR>')
-vim.keymap.set('n', '<leader>fR', ':FlutterRestart<CR>')
+vim.keymap.set("n", "<leader>ff", ":FlutterRun<CR>")
+vim.keymap.set("n", "<leader>fq", ":FlutterQuit<CR>")
+vim.keymap.set("n", "<leader>fr", ":FlutterReload<CR>")
+vim.keymap.set("n", "<leader>fR", ":FlutterRestart<CR>")
 ```
 
 ## Debugging
@@ -133,7 +133,7 @@ By connecting these two plugins to our beloved `flutter-tools.nvim` we can achie
 Start by configuring the plugins, we'll take it straight from their README:  
 
 ```lua
-require('dapui').setup()
+require("dapui").setup()
 local dap, dapui = require("dap"), require("dapui")
 dap.listeners.after.event_initialized["dapui_config"] = function()
  dapui.open()
@@ -150,17 +150,17 @@ sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", num
 sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = ""})
 sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = ""})
 
-vim.keymap.set('n', '<leader>db', ':lua require("dap").toggle_breakpoint()<CR>')
-vim.keymap.set('n', '<leader>dB', ':lua require("dap").set_breakpoint(vim.fn.input("Breakpoint Condition: "))<CR>')
-vim.keymap.set('n', '<leader>dd', ':lua require("dap").continue()<CR>')
-vim.keymap.set('n', '<leader>do', ':lua require("dap").step_over()<CR>')
-vim.keymap.set('n', '<leader>di', ':lua require("dap").step_ito()<CR>')
+vim.keymap.set("n", "<leader>db", ":lua require('dap').toggle_breakpoint()<CR>")
+vim.keymap.set("n", "<leader>dB", ":lua require('dap').set_breakpoint(vim.fn.input("Breakpoint Condition: "))<CR>")
+vim.keymap.set("n", "<leader>dd", ":lua require('dap').continue()<CR>")
+vim.keymap.set("n", "<leader>do", ":lua require('dap').step_over()<CR>")
+vim.keymap.set("n", "<leader>di", ":lua require('dap').step_into()<CR>")
 ```
 
 Then enable debugging via dap in our `flutter-tools.nvim` configuration:  
 
 ```lua
-require('flutter-tools').setup {
+require("flutter-tools").setup {
   decorations = {
     statusline = {
       app_version = true,
@@ -171,8 +171,8 @@ require('flutter-tools').setup {
     enabled = false,
   },
   closing_tags = {
-    highlight = 'Comment',
-    prefix = '//',
+    highlight = "Comment",
+    prefix = "//",
     enabled = true,
   },
   dev_log = {
@@ -197,7 +197,7 @@ require('flutter-tools').setup {
     run_via_dap = true,
     exception_breakpoints = {},
     register_configurations = function(_)
-      require('dap').configurations.dart = {}
+      require("dap").configurations.dart = {}
       require("dap.ext.vscode").load_launchjs()
     end,
   },
@@ -211,11 +211,11 @@ As a bonus, this setup allows us to use our pre-existing VSCode `launch.js` conf
 Lastly, the `nvim-dap` README provides some handy keybindings to navigate the debugger - things like breakpoint management and code traversal:  
 
 ```lua
-vim.keymap.set('n', '<leader>db', ':lua require("dap").toggle_breakpoint()<CR>')
-vim.keymap.set('n', '<leader>dB', ':lua require("dap").set_breakpoint(vim.fn.input("Breakpoint Condition: "))<CR>')
-vim.keymap.set('n', '<leader>dd', ':lua require("dap").continue()<CR>')
-vim.keymap.set('n', '<leader>do', ':lua require("dap").step_over()<CR>')
-vim.keymap.set('n', '<leader>di', ':lua require("dap").step_into()<CR>')
+vim.keymap.set("n", "<leader>db", ":lua require('dap').toggle_breakpoint()<CR>")
+vim.keymap.set("n", "<leader>dB", ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint Condition: '))<CR>")
+vim.keymap.set("n", "<leader>dd", ":lua require('dap').continue()<CR>")
+vim.keymap.set("n", "<leader>do", ":lua require('dap').step_over()<CR>")
+vim.keymap.set("n", "<leader>di", ":lua require('dap').step_into()<CR>")
 ```
 
 ## Conclusion

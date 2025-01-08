@@ -102,6 +102,10 @@ blockquote strong:nth-child(1) {
   flex-grow: 1;
 }
 
+.content {
+  width: 100%;
+}
+
 /* Navigation */
 
 ul {
@@ -165,34 +169,52 @@ nav ul li.active a {
 
 .footer {
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: 24px;
-  justify-content: center;
+  justify-content: space-between;
+  font-size: 0.8em;
 }
 
 #glider {
+  flex: 1 0 256px;
   width: 16px;
   height: 16px;
-  background: url("https://user-images.githubusercontent.com/7101404/154202000-86d49901-a42e-4025-b5ce-75c2b5da3e7c.png") bottom center no-repeat;
+  background: url("https://user-images.githubusercontent.com/7101404/154202000-86d49901-a42e-4025-b5ce-75c2b5da3e7c.png") bottom right no-repeat;
   background-size: contain;
+}
+
+#copyright {
+  flex: 1 0 256px;
+}
+
+#socials {
+  flex: 1 0 256px;
 }
 
 @media (min-width: 768px) {
   .recent-posts {
     display: flex;
   }
+
+  #glider {
+    background-position-x: center;
+  }
 }
 
 /* Code snippets */
 pre,
 code {
+  display: block;
   font-size: 1em;
   line-height: 18px;
   background-color: #1e1e2e;
   color: #cdd6f4;
   padding: 10px;
   border-radius: 8px;
-  display: block;
-  white-space: pre-wrap;
+  word-wrap: break-word;
+  white-space: pre;
+  overflow-x: auto;
+  overflow-wrap: break-word;
 }
 
 pre {
