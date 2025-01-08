@@ -191,7 +191,7 @@ nav ul li.active a {
 
 #copyright {
   flex: 1 0 256px;
-  text-align: right;
+  text-align: left;
 }
 
 #socials {
