@@ -191,6 +191,7 @@ nav ul li.active a {
 
 #copyright {
   flex: 1 0 256px;
+  text-align: right;
 }
 
 #socials {
@@ -204,6 +205,10 @@ nav ul li.active a {
 
   #glider {
     background-position-x: center;
+  }
+
+  #copyright {
+    text-align: right;
   }
 }
 
