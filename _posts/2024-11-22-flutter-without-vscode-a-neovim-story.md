@@ -11,7 +11,7 @@ Google's Flutter framework is rapidly gaining popularity among developers for en
 Let's put that to an end.  
 
 ## Why Neovim?
-**Neovim** is the terminal text editor that might finally earn your engineer father's approval. It's a modern take on **Vim**, a highly configurable and efficient editor celebrated for its powerful modal editing capabilities and mouse-free philosophy.  
+**Neovim** is the terminal text editor that might finally earn your engineer father's approval. It's a modern take on **Vim**, a highly configurable and efficient editor celebrated for its powerful modal editing capabilities and mouse-free philosophy.
 Between its lightweight, resource efficient nature and keyboard-centric workflow, **Neovim** can easily make Flutter's already fast UI workflow *blazingly* fast.  
 <br>
 It's also written and configured in **Lua**.  

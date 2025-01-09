@@ -68,6 +68,10 @@ h6 {
   font-weight: 200;
 }
 
+em {
+  font-weight: 200;
+}
+
 #title>a {
   color: black;
 }
@@ -78,6 +82,12 @@ h6 {
 
 .recent-posts>h3 {
   margin: 0 auto;
+}
+
+.recent-posts>ul {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .container {
