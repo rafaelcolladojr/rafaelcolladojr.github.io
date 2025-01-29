@@ -17,6 +17,8 @@ navbar:
     link: "/"
   - name: "Articles"
     link: "/articles/"
+  - name: "Projects"
+    link: "/projects/"
   - name: "Resume"
     link: "/assets/r_collado_resume.pdf"
 

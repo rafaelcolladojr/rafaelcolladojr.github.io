@@ -5,6 +5,7 @@ body {
   font-family: "JetBrains Mono", serif;
   font-optical-sizing: auto;
   font-style: normal;
+  font-size: 16px;
 }
 
 body {
@@ -23,7 +24,7 @@ p {
   font-family: "JetBrains Mono", serif;
   font-optical-sizing: auto;
   font-style: normal;
-  line-height: 28px;
+  line-height: 1.5em;
 }
 
 h1,
@@ -31,11 +32,20 @@ h2,
 h3,
 h4,
 h5 {
-  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+h4 {
+  font-weight: 400;
+}
+
+h5 {
+  font-weight: 200;
+  margin-bottom: 1em;
 }
 
 p {
-  margin-top: 1em;
+  margin-bottom: 2em;
 }
 
 a,
@@ -45,7 +55,8 @@ a:visited {
 }
 
 blockquote {
-  margin-top: 2em;
+  margin-top: 3em;
+  margin-bottom: 3em;
   margin-left: -24px;
   padding-left: 20px;
   box-shadow: inset 3px 0 0 0 #494d64;
@@ -62,7 +73,7 @@ blockquote strong:nth-child(1) {
 
 /* h6 = caption */
 h6 {
-  margin-top: 0;
+  margin-top: -2em;
   text-align: center;
   font-size: 0.8em;
   font-weight: 200;
@@ -125,7 +136,7 @@ em {
 /* Navigation */
 
 ul {
-  margin: 0px;
+  margin-bottom: 1em;
   padding: 0px;
 }
 
@@ -239,9 +250,11 @@ code {
 }
 
 pre {
-  margin-top: 2em;
+  margin-top: -1em;
+  margin-bottom: 2em;
 }
 
+li code,
 p code,
 h6 code {
   display: inline-block;

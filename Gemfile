@@ -6,5 +6,8 @@ gem 'csv'
 gem 'base64'
 gem 'bigdecimal'
 gem "jekyll"
-
-gem "kramdown-syntax-coderay", "~> 1.0"
+gem "kramdown-syntax-coderay"
+gem "i18n"
+gem "rouge"
+gem "concurrent-ruby"
+gem "ffi"

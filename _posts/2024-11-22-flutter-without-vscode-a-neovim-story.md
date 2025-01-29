@@ -46,6 +46,7 @@ vim.g.dart_trailing_comma_indent = true
 ### flutter-tools.nvim
 `flutter-tools.nvim` is a plugin that provides all the functionality we know and love from the Flutter platform: 
 hot reload/restart, device management, debugger support, and integration with the Dart analysis server for real-time code analysis.  
+
 The setup for this plugin is a bit more involved, but nothing we can't handle.  
 Just like before, we first add the plugin:  
 ```lua
@@ -101,16 +102,12 @@ require("flutter-tools").setup({
 })
 ```
 `decorations` controls what information is shown in the buffer status line.  
-
 `widget_guides` draws the widget guide lines indicating the parent-child relationships within the buffer. While still experimental, this feature can come in handy!  
-
 `closing_tags` determines the appearance of closing tags - the "comments" after the closing braces of a widget. This setup ensures the 'Comment' highlight group is used when rendering them.  
-
 `lsp` describes how the built-in Dart LSP configuration behaves. In color we've enabled virtual text messages for warnings, syntax errors, etc. And in settings, we're enabling features like TODO diagnostics, auto-completing function calls with required parameters, and including snippets like
 `stless -> StatelessWidget…` in code completion.  
 
 With that configured, we now have access to some useful commands, only four of which we really need to know for now:  
-
 `:FlutterRun` Starts the Flutter application in the current directory  
 `:FlutterQuit` Quits the currently running Flutter application  
 `:FlutterReload` Performs a Hot Reload on the currently running app  
