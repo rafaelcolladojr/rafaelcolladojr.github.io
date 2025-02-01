@@ -35,6 +35,15 @@ h5 {
   margin-bottom: 0.5em;
 }
 
+h4 {
+  font-weight: 400;
+}
+
+h5 {
+  font-weight: 200;
+  margin-bottom: 1em;
+}
+
 p {
   margin-bottom: 2em;
 }
