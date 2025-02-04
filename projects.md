@@ -12,3 +12,4 @@ title: Projects
 ##### App
 #### Pitch Perfect is a minimalist Japanese pitch accent reference application.  
 [App Store link](https://apps.apple.com/us/app/pitch-perfect-pocket-accent/id6741011029)  
+[Play Store link](https://play.google.com/store/apps/details?id=com.lastinteractive.pitchperfect.id)  
