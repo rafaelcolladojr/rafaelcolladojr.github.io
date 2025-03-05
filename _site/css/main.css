@@ -177,6 +177,12 @@ nav ul li.active a {
   display: flex;
 }
 
+.articles ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
 .articles ul li {
   display: flex;
   gap: 30px;
@@ -264,42 +270,81 @@ h6 code {
   vertical-align: middle;
 }
 
-.token.comment {
-  color: #6272a4;
-  font-style: italic;
+.language-dart {
+  color: #cdd6f4;
+
+  & .kd,
+  .kt,
+  .k {
+    color: #cba6f7;
+  }
+
+  & .nf {
+    color: #89b4fa;
+  }
+
+  & .nc,
+  .n {
+    color: #f9e2af;
+  }
+
+  & .na,
+  .nl {
+    color: #eba0ac;
+  }
+
+  & .p {
+    color: #a6adc8;
+  }
+
+  & .c1 {
+    color: #a6adc8;
+    font-style: italic;
+  }
+
+  /* color: #fab387; */
 }
 
-.o,
-.o+.o,
-.o+.n,
-.n+.n,
-.n+.o {
-  /* Style contiguous .o and .n elements */
-  color: #a6adc8;
-  font-style: italic;
-}
+.language-lua {
+  color: #cdd6f4;
 
-.n {
-  color: #b4befe;
-}
+  & .token.comment {
+    color: #6272a4;
+    font-style: italic;
+  }
 
-.s1,
-.s2 {
-  color: #a6e3a1;
-}
+  & .o,
+  .o+.o,
+  .o+.n,
+  .n+.n,
+  .n+.o {
+    /* Style contiguous .o and .n elements */
+    color: #a6adc8;
+    font-style: italic;
+  }
 
-.nb {
-  color: #fab387;
-}
+  & .n {
+    color: #b4befe;
+  }
 
-.kc {
-  color: #fab387;
-}
+  & .s1,
+  & .s2 {
+    color: #a6e3a1;
+  }
 
-.kd {
-  color: #cba6f7;
-}
+  & .nb {
+    color: #fab387;
+  }
 
-.k {
-  color: #cba6f7;
+  & .kc {
+    color: #fab387;
+  }
+
+  & .kd {
+    color: #cba6f7;
+  }
+
+  & .k {
+    color: #cba6f7;
+  }
 }

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  
+  
+
+  <title>Clean Your Flutter Dependencies in Minutes with GetIt - Rafael Collado</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="blog, rafaelcolladojr, Rafael Collado, jekyll">
+  <meta name="author" content="rafaelcolladojr">
+
+  <meta name="description" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="http://localhost:4000/css/main.css">
+  <link rel="shortcut-icon" type="image/ico" href="http://localhost:4000/">
+  
+  <link rel="canonical" href="https://medium.com/easy-flutter/clean-your-flutter-dependencies-in-minutes-with-getit-dc510937a201" />
+  
+
+  <!-- For Facebook -->
+  <meta property="og:title" content="Clean Your Flutter Dependencies in Minutes with GetIt - Rafael Collado" />
+  <meta property="og:image" itemprop="image" content="http://localhost:4000/" />
+  <meta property="og:description" content="" />
+
+  <!-- For Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Clean Your Flutter Dependencies in Minutes with GetIt - Rafael Collado" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="http://localhost:4000/" />
+</head>
+
+
+<body>
+  <div class="container">
+    <div class="header">
+  <header>
+    <div id="title">
+      <a class="site-title" href="http://localhost:4000/">
+        <h1>Rafael Collado</h1>
+      </a>
+    </div>
+  </header>
+  <nav>
+    <ul>
+      
+      
+      <li class="">
+        <a href="/">Home</a>
+      </li>
+      |
+      
+      
+      <li class="">
+        <a href="/articles/">Articles</a>
+      </li>
+      |
+      
+      
+      <li class="">
+        <a href="/projects/">Projects</a>
+      </li>
+      |
+      
+      
+      <li class="">
+        <a href="/assets/r_collado_resume.pdf">Resume</a>
+      </li>
+      
+      
+    </ul>
+  </nav>
+  <div>
+  </div>
+</div>
+
+    <!-- <div class="page-title"> -->
+    <!--   Clean Your Flutter Dependencies in Minutes with GetIt -->
+    <!-- </div> -->
+    <div class="body">
+      <div class="content">
+        <h1 class="post-title">
+          Clean Your Flutter Dependencies in Minutes with GetIt
+        </h1>
+        
+        <div class="medium-link">
+          <span>Read this article on </span>
+          <a href="https://medium.com/easy-flutter/clean-your-flutter-dependencies-in-minutes-with-getit-dc510937a201">Medium</a>
+        </div>
+        
+        <div class="post-content">
+          <p>Am I the only one who <strong><em>hates</em></strong> this sight:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">App</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="n">App</span><span class="p">({</span><span class="k">super</span><span class="o">.</span><span class="na">key</span><span class="p">});</span>
+
+  <span class="nd">@override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">final</span> <span class="n">client</span> <span class="o">=</span> <span class="n">HttpClient</span><span class="p">();</span>
+    <span class="kd">final</span> <span class="n">prefs</span> <span class="o">=</span> <span class="k">await</span> <span class="n">SharedPreferences</span><span class="p">();</span>
+    <span class="kd">final</span> <span class="n">depA</span> <span class="o">=</span> <span class="n">DependencyA</span><span class="p">();</span>
+    <span class="kd">final</span> <span class="n">depB</span> <span class="o">=</span> <span class="n">DependencyB</span><span class="p">();</span>
+    <span class="kd">final</span> <span class="n">depC</span> <span class="o">=</span> <span class="n">DependencyC</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="n">MultiRepositoryProvider</span><span class="p">(</span>
+      <span class="nl">providers:</span> <span class="p">[</span>
+        <span class="n">RepositoryProvider</span><span class="p">&lt;</span><span class="n">RepositoryA</span><span class="p">&gt;(</span><span class="nl">create:</span> <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">RepositoryAImpl</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">prefs</span><span class="p">)),</span>
+        <span class="n">RepositoryProvider</span><span class="p">&lt;</span><span class="n">RepositoryB</span><span class="p">&gt;(</span><span class="nl">create:</span> <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">RepositoryBImpl</span><span class="p">(</span><span class="n">depA</span><span class="p">)),</span>
+        <span class="n">RepositoryProvider</span><span class="p">&lt;</span><span class="n">RepositoryC</span><span class="p">&gt;(</span><span class="nl">create:</span> <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">RepositoryCImpl</span><span class="p">(</span><span class="n">depB</span><span class="p">)),</span>
+        <span class="n">RepositoryProvider</span><span class="p">&lt;</span><span class="n">RepositoryD</span><span class="p">&gt;(</span><span class="nl">create:</span> <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">RepositoryDImpl</span><span class="p">(</span><span class="n">client</span><span class="p">)),</span>
+        <span class="n">RepositoryProvider</span><span class="p">&lt;</span><span class="n">RepositoryE</span><span class="p">&gt;(</span><span class="nl">create:</span> <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">RepositoryEImpl</span><span class="p">(</span><span class="n">depC</span><span class="p">)),</span>
+      <span class="p">],</span>
+      <span class="nl">child:</span> <span class="n">MultiBlocProvider</span><span class="p">(</span>
+        <span class="nl">providers:</span> <span class="p">[</span>
+          <span class="n">BlocProvider</span><span class="p">&lt;</span><span class="n">BlocA</span><span class="p">&gt;(</span>
+            <span class="nl">create:</span>
+                <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span>
+                    <span class="n">BlocA</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="na">read</span><span class="p">&lt;</span><span class="n">RepositoryA</span><span class="p">&gt;()).</span><span class="o">.</span><span class="na">add</span><span class="p">(</span><span class="n">InitEvent</span><span class="p">()),</span>
+          <span class="p">),</span>
+          <span class="n">BlocProvider</span><span class="p">&lt;</span><span class="n">BlocB</span><span class="p">&gt;(</span>
+            <span class="nl">create:</span>
+                <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span>
+                    <span class="n">BlocB</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="na">read</span><span class="p">&lt;</span><span class="n">RepositoryB</span><span class="p">&gt;()).</span><span class="o">.</span><span class="na">add</span><span class="p">(</span><span class="n">InitEvent</span><span class="p">()),</span>
+          <span class="p">),</span>
+          <span class="n">BlocProvider</span><span class="p">&lt;</span><span class="n">BlocC</span><span class="p">&gt;(</span>
+            <span class="nl">create:</span> <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">BlocC</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="na">read</span><span class="p">&lt;</span><span class="n">RepositoryC</span><span class="p">&gt;()),</span>
+          <span class="p">),</span>
+          <span class="n">BlocProvider</span><span class="p">&lt;</span><span class="n">BlocD</span><span class="p">&gt;(</span>
+            <span class="nl">create:</span>
+                <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">BlocD</span><span class="p">(</span>
+                  <span class="n">context</span><span class="o">.</span><span class="na">read</span><span class="p">&lt;</span><span class="n">RepositoryD</span><span class="p">&gt;(),</span>
+                  <span class="n">context</span><span class="o">.</span><span class="na">read</span><span class="p">&lt;</span><span class="n">RepositoryE</span><span class="p">&gt;(),</span>
+                <span class="p">),</span>
+          <span class="p">),</span>
+        <span class="p">],</span>
+        <span class="nl">child:</span> <span class="n">MaterialApp</span><span class="p">(</span>
+
+<span class="c1">// ...the rest of this miserable app</span>
+</code></pre></div></div>
+
+<p>Managing dependencies efficiently is crucial, especially as application scopes grow. The <a href="https://pub.dev/packages/get_it">get_it</a> package can simplify dependency injection by acting as a service locator, allowing developers to register and retrieve instances easily. We’ll use this to establish <strong>all of our dependency relationships in one easy-to-read file</strong>.</p>
+
+<h2 id="installing-getit">Installing GetIt</h2>
+<p>Start by adding the package to your <code class="language-plaintext highlighter-rouge">pubspec.yaml</code>:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">// pubspec.yaml</span>
+
+<span class="na">dependencies</span><span class="pi">:</span>
+  <span class="na">get_it</span><span class="pi">:</span> <span class="s">^7.6.7</span>
+</code></pre></div></div>
+
+<h2 id="registering-dependencies">Registering Dependencies</h2>
+<p>We can start by creating what I call an injection container, where we register services or repositories in a single setup function:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// injection_container.dart</span>
+
+<span class="kd">final</span> <span class="n">di</span> <span class="o">=</span> <span class="n">GetIt</span><span class="o">.</span><span class="na">I</span><span class="p">;</span>
+
+<span class="n">Future</span><span class="p">&lt;</span><span class="kt">void</span><span class="p">&gt;</span> <span class="n">setupDependencyInjection</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
+  <span class="n">di</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerSingleton</span><span class="p">&lt;</span><span class="n">HttpClient</span><span class="p">&gt;(</span><span class="n">HttpClient</span><span class="p">())</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerSingleton</span><span class="p">&lt;</span><span class="n">SharedPreferences</span><span class="p">&gt;(</span><span class="k">await</span> <span class="n">SharedPreferences</span><span class="o">.</span><span class="na">getInstance</span><span class="p">())</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerSingleton</span><span class="p">&lt;</span><span class="n">RepositoryA</span><span class="p">&gt;(</span><span class="n">RepositoryA</span><span class="p">(</span><span class="n">di</span><span class="p">()))</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerFactory</span><span class="p">&lt;</span><span class="n">BlocA</span><span class="p">&gt;(</span><span class="n">BlocA</span><span class="p">(</span><span class="n">di</span><span class="p">())</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Immediately, we make the <strong>GetIt</strong> singleton instance a global variable: <code class="language-plaintext highlighter-rouge">di</code>. We do this exclusively to invoke the dependencies we will register, later in our <code class="language-plaintext highlighter-rouge">BlocProviders</code> and <code class="language-plaintext highlighter-rouge">MultiBlocProviders</code>.</p>
+
+<p>To register our dependencies, the <strong>GetIt</strong> instance provides a few methods:</p>
+
+<p><code class="language-plaintext highlighter-rouge">registerSingleton&lt;T&gt;()</code> – Creates a single instance of the class and reuses it.
+<code class="language-plaintext highlighter-rouge">registerLazySingleton&lt;T&gt;()</code> – Lazily creates a single instance of the class when first accessed and reuses it.
+<code class="language-plaintext highlighter-rouge">registerFactory&lt;T&gt;()</code> – Creates a new instance every time it’s requested.
+Note: Because <strong>GetIt</strong> keeps an active record of all instances registered and their type, it can infer which instance to produce when called as a constructor argument. So as long as dependency registrations are properly ordered, simply calling <code class="language-plaintext highlighter-rouge">di()</code> as an argument is enough.</p>
+
+<p>Now let’s create the same dependency chain from the first example:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// injection_container.dart</span>
+
+<span class="kd">final</span> <span class="n">di</span> <span class="o">=</span> <span class="n">GetIt</span><span class="o">.</span><span class="na">I</span><span class="p">;</span>
+
+<span class="n">Future</span><span class="p">&lt;</span><span class="kt">void</span><span class="p">&gt;</span> <span class="n">setupDependencyInjection</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
+  <span class="n">di</span>
+    <span class="c1">// Services</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerSingleton</span><span class="p">&lt;</span><span class="n">HttpClient</span><span class="p">&gt;(</span><span class="n">HttpClient</span><span class="p">())</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerSingleton</span><span class="p">&lt;</span><span class="n">SharedPreferences</span><span class="p">&gt;(</span><span class="k">await</span> <span class="n">SharedPreferences</span><span class="o">.</span><span class="na">getInstance</span><span class="p">())</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerSingleton</span><span class="p">&lt;</span><span class="n">DependencyA</span><span class="p">&gt;(</span><span class="n">DependencyA</span><span class="p">())</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerSingleton</span><span class="p">&lt;</span><span class="n">DependencyB</span><span class="p">&gt;(</span><span class="n">DependencyB</span><span class="p">())</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerSingleton</span><span class="p">&lt;</span><span class="n">DependencyC</span><span class="p">&gt;(</span><span class="n">DependencyC</span><span class="p">())</span>
+
+    <span class="c1">// Repositories</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerSingleton</span><span class="p">&lt;</span><span class="n">RepositoryA</span><span class="p">&gt;(</span><span class="n">RepositoryAImpl</span><span class="p">(</span><span class="n">di</span><span class="p">(),</span> <span class="n">di</span><span class="p">()))</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerSingleton</span><span class="p">&lt;</span><span class="n">RepositoryB</span><span class="p">&gt;(</span><span class="n">RepositoryBImpl</span><span class="p">(</span><span class="n">di</span><span class="p">()))</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerSingleton</span><span class="p">&lt;</span><span class="n">RepositoryC</span><span class="p">&gt;(</span><span class="n">RepositoryCImpl</span><span class="p">(</span><span class="n">di</span><span class="p">()))</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerSingleton</span><span class="p">&lt;</span><span class="n">RepositoryD</span><span class="p">&gt;(</span><span class="n">RepositoryDImpl</span><span class="p">(</span><span class="n">di</span><span class="p">()))</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerSingleton</span><span class="p">&lt;</span><span class="n">RepositoryE</span><span class="p">&gt;(</span><span class="n">RepositoryEImpl</span><span class="p">(</span><span class="n">di</span><span class="p">()))</span>
+
+    <span class="c1">// Blocs</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerFactory</span><span class="p">&lt;</span><span class="n">BlocA</span><span class="p">&gt;(</span><span class="n">BlocA</span><span class="p">(</span><span class="n">di</span><span class="p">())</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerFactory</span><span class="p">&lt;</span><span class="n">BlocB</span><span class="p">&gt;(</span><span class="n">BlocB</span><span class="p">(</span><span class="n">di</span><span class="p">())</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerFactory</span><span class="p">&lt;</span><span class="n">BlocC</span><span class="p">&gt;(</span><span class="n">BlocC</span><span class="p">(</span><span class="n">di</span><span class="p">())</span>
+    <span class="p">.</span><span class="o">.</span><span class="na">registerFactory</span><span class="p">&lt;</span><span class="n">BlocD</span><span class="p">&gt;(</span><span class="n">BlocD</span><span class="p">(</span><span class="n">di</span><span class="p">(),</span> <span class="n">di</span><span class="p">())</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We then only need to call this function once before <code class="language-plaintext highlighter-rouge">runApp()</code>:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// main.dart</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">await</span> <span class="n">setupDependencyInjection</span><span class="p">();</span>
+  <span class="n">runApp</span><span class="p">(</span><span class="n">MyApp</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="accessing-dependencies">Accessing Dependencies</h2>
+<p>Lastly, we now only need to provide our registered Bloc instances in the <code class="language-plaintext highlighter-rouge">MultiBlocProvider</code>:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app.dart</span>
+
+<span class="kd">class</span> <span class="nc">App</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="n">App</span><span class="p">({</span><span class="k">super</span><span class="o">.</span><span class="na">key</span><span class="p">});</span>
+
+  <span class="nd">@override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">MultiBlocProvider</span><span class="p">(</span>
+      <span class="nl">providers:</span> <span class="p">[</span>
+        <span class="n">BlocProvider</span><span class="p">&lt;</span><span class="n">BlocA</span><span class="p">&gt;(</span><span class="nl">create:</span> <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">di</span><span class="p">())</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     <span class="p">,</span>
+        <span class="n">BlocProvider</span><span class="p">&lt;</span><span class="n">BlocB</span><span class="p">&gt;(</span><span class="nl">create:</span> <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">di</span><span class="p">()),</span>
+        <span class="n">BlocProvider</span><span class="p">&lt;</span><span class="n">BlocC</span><span class="p">&gt;(</span><span class="nl">create:</span> <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">di</span><span class="p">()),</span>
+        <span class="n">BlocProvider</span><span class="p">&lt;</span><span class="n">BlocD</span><span class="p">&gt;(</span><span class="nl">create:</span> <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">di</span><span class="p">()),</span>
+        <span class="n">BlocProvider</span><span class="p">&lt;</span><span class="n">BlocE</span><span class="p">&gt;(</span><span class="nl">create:</span> <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">di</span><span class="p">()),</span>
+      <span class="p">],</span>
+      <span class="nl">child:</span> <span class="n">MaterialApp</span><span class="p">(</span>
+
+<span class="c1">// ...the rest of this less miserable app</span>
+</code></pre></div></div>
+
+<p>…much cleaner and easier to manage.</p>
+
+<p>The best part of this approach: Since we register our Blocs as “factories”, those provided to specific screens/widgets will be <strong>destroyed when their routes are popped</strong>. This avoids unused Blocs and their dependencies unnecessarily using memory.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>The <strong>GetIt</strong> package was intended as a global service locater, but for developers who <strong>prefer explicit dependency injection</strong>, it can act as a <strong>dependency relationship manager</strong>. So whenever dependencies and their relationships change, a developer doesn’t have to scour their codebase for references.</p>
+
+        </div>
+      </div>
+      
+    </div>
+    <div class="footer">
+  <div id="socials">
+    <a href="https://github.com/rafaelcolladojr">Github</a>
+    |
+    <a href="https://x.com/rafaelcolladojr">X</a>
+    |
+    <a href="https://instagram.com/rafaelcolladojr">Instagram</a>
+  </div>
+  <div id="glider"></div>
+  <div id="copyright">Rafael Collado © All rights reserved.</div>
+</div>
+
+    </main>
+</body>
+<!---->
+<!-- <div class="page-subtitle"> -->
+<!--    -->
+<!--    -->
+<!--   <b>[</b> -->
+<!--    -->
+<!--   <a href="/tags/#flutter" title="flutter">flutter</a> -->
+<!--    -->
+<!--   , -->
+<!--    -->
+<!--    -->
+<!--    -->
+<!--   <a href="/tags/#dart" title="dart">dart</a> -->
+<!--    -->
+<!--   , -->
+<!--    -->
+<!--    -->
+<!--    -->
+<!--   <a href="/tags/#tutorial" title="tutorial">tutorial</a> -->
+<!--    -->
+<!--   , -->
+<!--    -->
+<!--    -->
+<!--    -->
+<!--   <a href="/tags/#plugin" title="plugin">plugin</a> -->
+<!--    -->
+<!--   , -->
+<!--    -->
+<!--    -->
+<!--    -->
+<!--   <a href="/tags/#"dependency" title=""dependency">"dependency</a> -->
+<!--    -->
+<!--   , -->
+<!--    -->
+<!--    -->
+<!--    -->
+<!--   <a href="/tags/#injection"" title="injection"">injection"</a> -->
+<!--    -->
+<!--   <b>]</b> -->
+<!--    -->
+<!--    -->
+<!-- </div> -->
